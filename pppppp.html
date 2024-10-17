@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <style>
+        /* Your CSS styles here */
+        .profile_image img {
+            width: 50vw;
+            height: 50vh;
+            display: flex;
+        }
+
+        input[type="text"] {
+            background-color: transparent;
+            border: none;
+            width: 100%;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-bottom: 2px solid var(--background-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        tbody{
+            /* display: flex; */
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+        <p class="fs-1 fw-bold text-success">Vijay samrat</p>
+        <div class="row gap-3 ">
+            <div class="col-md-4 col-12 p-2 rounded shadow border text-center">
+                <div id="imageContainer" class="mb-3 profile_image">
+                    <img id="displayedImage" src="1.jpg" alt="Image" class="img-fluid rounded">
+                </div>
+                <input type="file" id="fileInput" style="display: none;">
+                <button id="changeImageButton" class="btn btn-outline-success">Change Image</button>
+            </div>
+            <div class="col-md-7 col-12 shadow rounded border p-3">
+                <table id="editableTable" class="px-5" width="100%">
+                    <tbody>
+                        <tr>
+                            <td class="fs-5 fw-bold mt-3">Personal Information
+                            </td>
+                        </tr>
+                        <tr class="mt-3">
+                            <td><input id="firstName" class=" mt-2 w-25 fs-5 p-1 text-secondary" type="text"
+                                    placeholder="Enter first name" value="Mahboob" readonly>
+                                <input id="lastName" class=" mt-2 w-25 fs-5 p-1 text-secondary" type="text"
+                                    placeholder="Enter last name" value="Alam" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="d-block fs-5 mt-3">Your gender</td>
+                            <td class="d-block fs-5 p-2 text-secondary"><input class="me-2" type="radio" name="Gender"
+                                    value="Male" checked disabled>Male
+                                <input class="mx-2" type="radio" name="Gender" value="Female" disabled>Female <input
+                                    class="mx-2" type="radio" name="Gender" value="Other" disabled>Other
+                            </td>
+                        </tr>
+                        <tr class="mt-3">
+                            <td class="fs-5 fw-bold mt-3">Email Address
+                            </td>
+                        <tr></tr>
+                        <td><input id="email" class=" mt-2 w-50 fs-5 p-1 text-secondary" type="text"
+                                placeholder="example@gamil.com" value="alammahaboob94@gamil.com" readonly>
+                        </td>
+                        </tr>
+                        <tr class="mt-3">
+                            <td class="fs-5 fw-bold mt-3">Mobile Number
+                            </td>
+                        <tr></tr>
+                        <td><input id="mobile" class=" mt-2 w-50 fs-5 p-1 text-secondary" type="text"
+                                placeholder="Enter mobile number" value="9876543210" readonly>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="actions mt-2">
+                    <span class="edit">
+                        <button class="edit btn btn-outline-success w-25">Edit</button>
+                    </span>
+                    <span class="save-cancel" style="display: none;">
+                        <button class="save btn btn-outline-success w-25">Save</button>
+                        <button class="cancel btn btn-outline-danger w-25">Cancel</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".edit").click(function () {
+                $(".edit").hide();
+                $(".save-cancel").show();
+                $("#firstName, #lastName, #email, #mobile, input[name='Gender']").prop("readonly", false).prop("disabled", false);
+            });
+
+            $(".cancel").click(function () {
+                $(".edit").show();
+                $(".save-cancel").hide();
+                $("#firstName, #lastName, #email, #mobile, input[name='Gender']").prop("readonly", true).prop("disabled", true);
+            });
+
+            $(".save").click(function () {
+                // Perform save operation here
+                $(".edit").show();
+                $(".save-cancel").hide();
+                $("#firstName, #lastName, #email, #mobile, input[name='Gender']").prop("readonly", true).prop("disabled", true);
+            });
+
+            $("#changeImageButton").click(function () {
+                $("#fileInput").click();
+            });
+
+            $("#fileInput").change(function () {
+                var file = this.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#displayedImage").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
